@@ -7,7 +7,6 @@ class HotelUser(User):
     otp = models.CharField(max_length = 10 , null = True , blank = True)
     is_verified = models.BooleanField(default = False)
 
-
 class HotelVendor(User):
     phone_number =  models.CharField(unique = True, max_length= 100)
     profile_picture = models.ImageField(upload_to="profile")
