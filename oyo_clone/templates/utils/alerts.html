@@ -1,32 +1,35 @@
-{% if messages %}
+<!-- {% if messages %}
 {% for message in messages %}
 <div class="alert alert-{% if message.tags %} {{ message.tags }}{% else %}success{% endif %}" role="alert">
     {{message}}
   </div>
     
-    <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
     {% endfor %}
+{% endif %} -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/alerts.css' %}">
+{% if messages %}
+  <div class="custom-message-container">
+    {% for message in messages %}
+      <div class="custom-alert {{ message.tags|default:'info' }}">
+        <span class="icon">
+          {% if message.tags == 'success' %}
+            ✅
+          {% elif message.tags == 'error' or message.tags == 'danger' %}
+            ❌
+          {% elif message.tags == 'warning' %}
+            ⚠️
+          {% elif message.tags == 'info' %}
+            ℹ️
+          {% else %}
+            💬
+          {% endif %}
+        </span>
+        <span class="text">{{ message }}</span>
+      </div>
+    {% endfor %}
+  </div>
 {% endif %}
-<!-- bootstrap alerts -->
 
-  <!-- <div class="alert alert-secondary" role="alert">
-    A simple secondary alert—check it out!
-  </div>
-  <div class="alert alert-success" role="alert">
-    A simple success alert—check it out!
-  </div>
-  <div class="alert alert-danger" role="alert">
-    A simple danger alert—check it out!
-  </div>
-  <div class="alert alert-warning" role="alert">
-    A simple warning alert—check it out!
-  </div>
-  <div class="alert alert-info" role="alert">
-    A simple info alert—check it out!
-  </div>
-  <div class="alert alert-light" role="alert">
-    A simple light alert—check it out!
-  </div>
-  <div class="alert alert-dark" role="alert">
-    A simple dark alert—check it out!
-  </div> -->
+
+<!-- bootstrap alerts -->

@@ -1,0 +1,90 @@
+/* Base styling for alerts */
+.custom-message-container {
+    margin-top: 0.2rem;
+}
+
+/* Custom alert styles */
+.custom-alert {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 0.4rem;
+    backdrop-filter: blur(10px); /* Optional: adds a blur effect */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.8); /* semi-transparent light background */
+    color: #1a1a1a; /* dark text for contrast */
+    transition: background 0.3s ease;
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Different color classes for different message types */
+.custom-alert.success {
+    border-left: 5px solid #28a745; /* Green */
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.custom-alert.error, .custom-alert.danger {
+    border-left: 5px solid #dc3545; /* Red */
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.custom-alert.warning {
+    border-left: 5px solid #ffc107; /* Yellow */
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.custom-alert.info {
+    border-left: 5px solid #17a2b8; /* Blue */
+    background: rgba(23, 162, 184, 0.1);
+    color: #17a2b8;
+}
+
+/* Optional icons styling */
+.custom-alert .icon {
+    margin-right: 10px;
+    font-size: 1.5rem; /* Slightly bigger icon */
+}
+
+/* Text and icon alignment */
+.custom-alert .text {
+    flex: 1;
+    color: inherit;
+    font-size: 1rem;
+}
+
+/* Dark mode specific styles */
+body.dark-mode .custom-alert {
+    background: rgba(0, 0, 0, 0.7); /* Darker background for dark mode */
+    color: #f0f0f0;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Add fade-in/fade-out animations */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.custom-alert {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+/* Media Query for handling light/dark mode automatically */
+@media (prefers-color-scheme: dark) {
+    .custom-alert {
+        background: rgba(0, 0, 0, 0.7);
+        color: #f0f0f0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
