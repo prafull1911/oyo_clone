@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import (HotelUser)
 from .utils import generateRandomToken,sendEmailToken
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
 # Create your views here.
 def register_view(request):
     if request.method == "POST":
@@ -38,6 +39,29 @@ def register_view(request):
 
 
 def login_view(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        hotel_user = HotelUser.objects.filter(email = email)
+        print(hotel_user)
+        if not hotel_user.exists():
+            messages.error(request, "No Account Found!!")
+            return redirect("login")
+        
+        if not hotel_user[0].is_verified:
+            messages.error(request, "The user is not verified!!!")
+            return redirect("login")
+        
+        hotel_user = authenticate(username = hotel_user[0].username, password = password)
+        
+        if hotel_user:
+            messages.success(request, "Login Success")
+            login(request, hotel_user)
+            return redirect("login")
+        
+        messages.error(request,"Invalid Credentials")
+        return redirect("login")
     template_name = "accounts/login.html"
     context = {}
     return render(request, template_name, context)

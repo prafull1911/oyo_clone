@@ -10,17 +10,17 @@
 <body>
     <div class="box">
         <span class="borderLine"></span>
-        <form action="POST">
+        <form method="post">
             {% csrf_token %}
             {% include 'utils/alerts.html' %}
             <h2>Sign in</h2>
             <div class="inputBox">
-                <input type="text" required>
-                <span>Username</span>
+                <input type="text" name="email" required>
+                <span>Email</span>
                 <i></i>
             </div>
             <div class="inputBox">
-                <input type="password" required>
+                <input type="password" name="password" required>
                 <span>Password</span>
                 <i></i>
             </div>
