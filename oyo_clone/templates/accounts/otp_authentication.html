@@ -10,7 +10,8 @@
 <body>
     <div class="box">
         <span class="borderLine"></span>
-        <form action="">
+        <form method="post">
+            {% csrf_token %}
             <h2>Sign in</h2>
             <!-- <div class="inputBox">
                 <input type="text" required>
@@ -18,15 +19,16 @@
                 <i></i>
             </div> -->
             <div class="inputBox">
-                <input type="text" required>
+                <input type="text" name="otp" required>
                 <span>OTP</span>
                 <i></i>
             </div>
             <div class="links">
                 <!-- <a href="#">Forgot Password</a> -->
-                <a href="#">Signup</a>
+                
             </div>
-            <input type="submit" id="submit" value="Login">
+            <input type="submit" id="submit" value="Verify OTP">
+            
         </form>
     </div>
 </body>

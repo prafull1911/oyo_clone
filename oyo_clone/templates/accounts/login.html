@@ -38,13 +38,16 @@
         </form>
     </div>
     <script>
-        function sendOtp(){
-            let email = document.getElementById("email").value
-            if (email === ""){
-                alert("Email can not be blank!!!")
+        function sendOtp() {
+            let email = document.getElementById("email").value;
+            if (email == "") {
+                alert("Email cannot be blank!!!");
+                window.location.href = `/login`;
+                return; // stop further execution
             }
-
-            window.location.href = `send_otp/${email}`
+    
+            // Redirect only if email is not blank
+            window.location.href = `/send-otp/${email}/`;
         }
     </script>
 </body>

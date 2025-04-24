@@ -67,10 +67,10 @@ def login_view(request):
     context = {}
     return render(request, template_name, context)
 
-def otp_authentication_view(request):
-    template_name = "accounts/otp_authentication.html"
-    context = {}
-    return render(request, template_name, context)
+# def otp_authentication_view(request):
+#     template_name = "accounts/otp_authentication.html"
+#     context = {}
+#     return render(request, template_name, context)
 
 
 def verify_email_token(request, token):
@@ -93,5 +93,20 @@ def send_otp(request,email):
     # Now if user exists I have to send it OTP, for that I will create a function in utils.py
     otp = generateOtp()
     hotel_user.update(otp = otp) 
-    hotel_user.save()
     sendOtpToEmail(email,otp)
+    return redirect(f'/verify-otp/{email}/')
+
+def verify_otp(request, email):
+    if request.method == "POST":
+        otp = request.POST.get("otp")
+        hotel_user = HotelUser.objects.get(email = email)
+        #print(hotel_user)
+        if otp == hotel_user.otp:
+            #print("OTP is verified successfully!!!")
+            messages.success(request, "OTP has been successfully verified!!!")
+            login(request, hotel_user)
+            return redirect("login")
+        
+        messages.warning(request,"OTP is incorrect!!!")
+        return redirect("/verify-otp/{email}/")
+    return render(request, "accounts/otp_authentication.html")
