@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib import messages
 from .models import (HotelUser)
-from .utils import generateRandomToken,sendEmailToken
+from .utils import generateRandomToken,sendEmailToken,generateOtp,sendOtpToEmail
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
+
 # Create your views here.
 def register_view(request):
     if request.method == "POST":
@@ -81,3 +82,16 @@ def verify_email_token(request, token):
         return redirect("login")
     except Exception as e:
         return HttpResponse("Invalid Token")
+
+def send_otp(request,email):
+    # first I will check whether the user with email is present or not
+    hotel_user = HotelUser.objects.filter(email = email)
+    if not hotel_user.exists():
+        messages.warning(request,"No account found")
+        return redirect("login")
+    
+    # Now if user exists I have to send it OTP, for that I will create a function in utils.py
+    otp = generateOtp()
+    hotel_user.update(otp = otp) 
+    hotel_user.save()
+    sendOtpToEmail(email,otp)

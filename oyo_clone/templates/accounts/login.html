@@ -15,7 +15,7 @@
             {% include 'utils/alerts.html' %}
             <h2>Sign in</h2>
             <div class="inputBox">
-                <input type="text" name="email" required>
+                <input type="text" name="email" id = "email" required>
                 <span>Email</span>
                 <i></i>
             </div>
@@ -28,9 +28,24 @@
                 <a href="#">Forgot Password</a>
                 <a href="{% url 'register' %}">Signup</a>
             </div>
-            <input type="submit" id="submit" value="Login">
+            <div class="button-grp">
+                <input type="submit" id="submit" value="Login">
+                <input type="button" id="LogInWithOtp" onclick="sendOtp()" value="Login With OTP"
+                style="border: none; outline: none; padding: 9px 25px; cursor: pointer; font-size: 0.9em; border-radius: 4px; font-weight: 600; width: 200px; margin-top: 10px; background-color: #45f3ff; transition: background-color 0.3s;">
+            </div>
+            
+
         </form>
     </div>
-    
+    <script>
+        function sendOtp(){
+            let email = document.getElementById("email").value
+            if (email === ""){
+                alert("Email can not be blank!!!")
+            }
+
+            window.location.href = `send_otp/${email}`
+        }
+    </script>
 </body>
 </html>
